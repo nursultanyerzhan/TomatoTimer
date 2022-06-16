@@ -22,3 +22,7 @@ export class Task {
 
     getCounter() { return this.#counter; }
 }
+
+// class ImportantTask extends Task {
+//     constructor()
+// }

@@ -1,12 +1,19 @@
 import { Task } from './task.js';
+
 class Tomato {
     constructor(timeRemaining = 25, timePause = 5, timeBigPause = 15, tasks = []) {
+        if (Tomato._instance) {
+            return Tomato._instance;
+        }
         this.timeRemaining = timeRemaining;
         this.timePause = timePause;
         this.timeBigPause = timeBigPause;
         this.tasks = tasks;
         this.activeTask = null;
+        Tomato._instance = this;
     }
+
+
 
     addTask(task) {
         this.tasks.push(task);
@@ -57,7 +64,8 @@ const task3 = new Task(' задача 3', 2);
 const task4 = new Task(' задача 4', 1);
 const task5 = new Task(' задача 5');
 
-const tomato = new Tomato(10, 5, 15, [task1, task2, task3, task4]);
+let tomato = new Tomato(10, 5, 15, [task1, task2, task3, task4]);
+tomato = new Tomato(2, 5, 15, [task1, task2, task3, task4]);
 tomato.addTask(task5);
 tomato.activateTask(task5.getId());
 
