@@ -8,14 +8,15 @@ export class ConrollerTomato {
 
     static setEventListenerToStart(btnStart) {
         btnStart.addEventListener('click', () => {
-            const tomato = new Tomato(0, 0, 0, []);
+            const tomato = new Tomato();
             tomato.runTimer();
         });
     }
 
     static setEventListenerToStop(btnStop) {
         btnStop.addEventListener('click', () => {
-            alert('stop');
+            const tomato = new Tomato();
+            tomato.stopTimer();
         });
     }
 
@@ -43,7 +44,7 @@ export class ConrollerTomato {
         addTaskForm.addEventListener('submit', e => {
             e.preventDefault();
             const formData = Object.fromEntries(new FormData(e.target));
-            const tomato = new Tomato(0, 0, 0, []);
+            const tomato = new Tomato();
             const task = new Task(formData.taskName, 0, window.importance);
             tomato.addTask(task);
             addTaskForm.reset();
@@ -67,7 +68,8 @@ export class ConrollerTomato {
             }
 
             if (target.classList.contains('burger-popup__delete-button')) {
-                alert('Удалить');
+                const modalOverlay = document.querySelector('.modal-overlay');
+                modalOverlay.style.display = 'block';
             }
 
             if (target.classList.contains('pomodoro-tasks__task-text')) {
@@ -77,12 +79,25 @@ export class ConrollerTomato {
                 const windowPanelTitle = document.querySelector('.window__panel-title');
                 windowPanelTitle.textContent = target.textContent;
 
-                const tomato = new Tomato(0, 0, 0, []);
+                const tomato = new Tomato();
                 tomato.activateTask(target.getAttribute('id'));
             }
         });
     }
 
+    static setEventListenerToModalDelete(modalDelete) {
+        console.log(modalDelete);
+        modalDelete.addEventListener('click', ({ target }) => {
+            if (target.classList.contains('modal-delete__delete-button')) {
+                // const li = target.closest('li');
+                // li.children[3].classList.add('burger-popup_active');
+                alert('369');
+            } else {
+                alert('111');
+
+            }
+        });
+    }
     static clearChoosenTasks() {
         const taskTexts = document.querySelectorAll('.pomodoro-tasks__task-text');
         taskTexts.forEach(item => {

@@ -21,6 +21,9 @@ export class Task {
     incrementCount () {
         this.#counter++;
     }
+    clearCounter () {
+        this.#counter = 0;
+    }
 
     getImportance () { return this.#importance; }
 

@@ -19,7 +19,7 @@ export class RenderTomato {
         const btnStop = el('button', { className: 'button button-secondary', id: 'btnStop' }, 'Стоп');
         const chooseImportance = el('button', { className: 'button button-importance default', type: 'button', title: 'Указать важность', id: 'chooseImportance' });
         const addTaskForm = el('form', { className: 'task-form', action: 'submit' },
-            el('input', { className: 'task-name input-primary', type: 'text', name: 'taskName', id: 'task-name', placeholder: 'название задачи' }),
+            el('input', { className: 'task-name input-primary', type: 'text', name: 'taskName', id: 'task-name', placeholder: 'название задачи', required: 'required'}),
             chooseImportance,
             el('button', { className: 'button button-primary task-form__add-button', type: 'submit' }, 'Добавить')
         );
@@ -53,17 +53,26 @@ export class RenderTomato {
                             el('li', { className: 'pomodoro-tasks__list-item' }, 'Каждые 4 периода таймера делайте длинный перерыв (15-20 минут).')
                         ),
                         taskList,
-                        el('p', { className: 'pomodoro-tasks__deadline-timer' }, '1 час 30 мин')
+                        el('p', { className: 'pomodoro-tasks__deadline-timer' }, '')
                     )
                 )
             )
         );
 
-        const body = el('div', {}, header, main);
+        const modalDelete = el('div', { className: 'modal-overlay'},
+                                el('div', {className: 'modal-delete'},
+                                    el('p', { className: 'modal-delete__title'}, 'Удалить задачу?'),
+                                    el('button', {className:'modal-delete__close-button'}),
+                                    el('button', {className:'modal-delete__delete-button button-primary'}, 'Удалить'),
+                                    el('button', {className:'modal-delete__cancel-button'}, 'Отмена')
+                                )
+                            )
+
+        const body = el('div', {}, header, main, modalDelete);
 
         mount(document.body, body);
 
-        return { btnStart, btnStop, chooseImportance, addTaskForm, taskList };
+        return { btnStart, btnStop, chooseImportance, addTaskForm, taskList, modalDelete };
     }
 
     static addTask(id, name, countNumber, importance) {
@@ -83,12 +92,13 @@ export class RenderTomato {
     static activateTask(id, taskName) {
         const windowPanelTitle = document.querySelector('.window__panel-title');
         windowPanelTitle.textContent = taskName;
-
-        // const choosenTaskName = document.querySelector(`"[data_id=${id}]"`);
-        // const choosenTaskName = document.querySelector(`#${id}`);
-        // choosenTaskName.classList.add('pomodoro-tasks__task-text_active');
     }
 
-    
+
+    static setWindowTimerText (text) {
+        const windowTimerText = document.querySelector('.window__timer-text');
+        windowTimerText.textContent = text;
+    } 
+
 }
 
