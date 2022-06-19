@@ -18,13 +18,12 @@ export class Tomato {
     }
 
     renderElements() {
-        const { btnStart, btnStop, chooseImportance, addTaskForm, taskList, modalDelete } = RenderTomato.init();
+        const { btnStart, btnStop, chooseImportance, addTaskForm, taskList } = RenderTomato.init();
         ConrollerTomato.setEventListenerToStart(btnStart);
         ConrollerTomato.setEventListenerToStop(btnStop);
         ConrollerTomato.setEventListenerToChooseImportance(chooseImportance);
         ConrollerTomato.setEventListenerToAddTaskForm(addTaskForm);
         ConrollerTomato.setEventListenerToTaskList(taskList);
-        ConrollerTomato.setEventListenerToModalDelete(modalDelete);
     };
 
 
@@ -95,16 +94,3 @@ export class Tomato {
         clearInterval(this.taskTimertimerId);
     }
 }
-
-// const task1 = new Task('первая задача', 4);
-// const task2 = new Task(' задача 2', 3);
-// const task3 = new Task(' задача 3', 2);
-// const task4 = new Task(' задача 4', 1);
-// const task5 = new Task(' задача 5');
-
-// let tomato = new Tomato(10, 5, 15, [task1, task2, task3, task4]);
-// tomato = new Tomato(2, 5, 15, [task1, task2, task3, task4]);
-// tomato.addTask(task5);
-// tomato.activateTask(task5.getId());
-
-// console.log(tomato.tasks);

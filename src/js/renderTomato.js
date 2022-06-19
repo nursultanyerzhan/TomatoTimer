@@ -1,5 +1,4 @@
-import { el, mount, setChildren } from '/node_modules/redom/dist/redom.es.js';
-// import {task} from './task.js';
+import { el, mount } from '/node_modules/redom/dist/redom.es.js';
 
 export class RenderTomato {
     constructor() {
@@ -59,30 +58,17 @@ export class RenderTomato {
             )
         );
 
-        const modalDelete = el('div', { className: 'modal-overlay'},
-                                el('div', {className: 'modal-delete'},
-                                    el('p', { className: 'modal-delete__title'}, 'Удалить задачу?'),
-                                    el('button', {className:'modal-delete__close-button'}),
-                                    el('button', {className:'modal-delete__delete-button button-primary'}, 'Удалить'),
-                                    el('button', {className:'modal-delete__cancel-button'}, 'Отмена')
-                                )
-                            )
-
-        const body = el('div', {}, header, main, modalDelete);
+        const body = el('div', {}, header, main);
 
         mount(document.body, body);
 
-        return { btnStart, btnStop, chooseImportance, addTaskForm, taskList, modalDelete };
+        return { btnStart, btnStop, chooseImportance, addTaskForm, taskList };
     }
 
     static addTask(id, name, countNumber, importance) {
-        const editTask = el('button', { className: 'popup-button burger-popup__edit-button' }, 'Редактировать');
-        const removeTask = el('button', { className: 'popup-button burger-popup__delete-button' }, 'Удалить');
         const li = el('li', { className: `pomodoro-tasks__list-task ${importance}` },
             el('span', { className: 'count-number' }, countNumber),
             el('button', { className: 'pomodoro-tasks__task-text', id: id, data_id: id }, name),
-            el('button', { className: 'pomodoro-tasks__task-button' }),
-            el('div', { className: 'burger-popup' }, editTask, removeTask)
         );
 
         const pomodoroTasksQuestTasks = document.querySelector('.pomodoro-tasks__quest-tasks');
